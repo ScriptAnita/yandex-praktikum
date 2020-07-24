@@ -15,6 +15,7 @@ import {
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import Section from "../components/Section.js";
 
 const ESC_KEYCODE = 27;
 
@@ -100,10 +101,19 @@ IMAGE_MODAL_WINDOW.addEventListener('click', (evt) => {
   }
 });
 
-// Инициализация
-INITIAL_CARDS.forEach((data) => {
-  renderCard(data, PLACES_LIST)
-});
+const cardsList = new Section({
+    items: INITIAL_CARDS,
+    renderer: (item) => {
+      const card = new Card(item, CARD);
+      const cardElement = card.getView();
+
+      cardsList.addItem(cardElement);
+    },
+  },
+  '.places__list'
+);
+
+cardsList.renderItems();
 
 const editFormValidator = new FormValidator(defaultFormConfig, EDIT_FORM_MODAL_WINDOW);
 const cardFormValidator = new FormValidator(defaultFormConfig, CARD_FORM_MODAL_WINDOW);
