@@ -1,122 +1,76 @@
 import {
-  CARD_FORM_MODAL_WINDOW,
-  CARD_LINK_INPUT,
-  CARD_NAME_INPUT,
-  DESCRIPTION_INPUT,
-  EDIT_FORM_MODAL_WINDOW, IMAGE_MODAL_WINDOW,
+  POPUP_NEW_CARD,
+  IMAGE_POPUP,
   INITIAL_CARDS,
-  OPEN_CARD_FORM_BUTTON,
-  OPEN_EDIT_FORM_BUTTON,
   PLACES_LIST,
   PROFILE_DESCRIPTION,
   PROFILE_TITLE,
-  TITLE_INPUT,
-  CARD
+  CARD_TEMPLATE,
+  OPEN_POPUP_NEW_CARD,
+  POPUP_EDIT_PROFILE,
+  OPEN_POPUP_EDIT_PROFILE,
+  DEFAULT_FORM_CONFIG
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
+import UserInfo from "../components/UserInfo.js";
 import FormValidator from '../components/FormValidator.js';
 import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
-const ESC_KEYCODE = 27;
+const userInfo = new UserInfo(PROFILE_TITLE, PROFILE_DESCRIPTION);
 
-const defaultFormConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+const createCard = (data) => {
+  const card = new Card(data, CARD_TEMPLATE, (data) => popupWithImage.open(data));
+  return card.getView();
 };
 
-const isEscEvent = (evt, action) => {
-  const activePopup = document.querySelector('.popup_is-opened');
-  if (evt.which === ESC_KEYCODE) {
-    action(activePopup);
-  }
-};
+/////// Попап с изображением
 
-const openModalWindow = (modalWindow) => {
-  modalWindow.classList.add('popup_is-opened');
-  document.addEventListener('keyup', handleEscUp);
-};
+const popupWithImage = new PopupWithImage(IMAGE_POPUP);
+popupWithImage.setEventListeners();
 
-const closeModalWindow = (modalWindow) => {
-  modalWindow.classList.remove('popup_is-opened');
-  document.removeEventListener('keyup', handleEscUp);
-};
+////// Попап для добавления новой карточки
 
-const renderCard = (data, wrap) => {
-  const card = new Card(data, CARD);
-  wrap.prepend(card.getView());
-};
+const submitNewCard = (data) => {
+  cardsList.addItem(createCard({
+    name: data['place-name'], link: data.link
+  }));
+}
+const popupAddNewCard = new PopupWithForm(POPUP_NEW_CARD, submitNewCard);
+popupAddNewCard.setEventListeners();
 
-const handleEscUp = (evt) => {
-  evt.preventDefault();
-  isEscEvent(evt, closeModalWindow);
-};
+OPEN_POPUP_NEW_CARD.addEventListener('click', () => popupAddNewCard.open());
+const newCardFormValidator = new FormValidator(DEFAULT_FORM_CONFIG, POPUP_NEW_CARD);
+newCardFormValidator.enableValidation();
 
-const formSubmitHandler = (evt) => {
-  evt.preventDefault();
-  PROFILE_TITLE.textContent = TITLE_INPUT.value;
-  PROFILE_DESCRIPTION.textContent = DESCRIPTION_INPUT.value;
-  closeModalWindow(EDIT_FORM_MODAL_WINDOW);
-};
+////// Попап редактирования профиля
 
-const cardFormSubmitHandler = (evt) => {
-  evt.preventDefault();
-  renderCard({
-    name: CARD_NAME_INPUT.value,
-    link: CARD_LINK_INPUT.value
-  }, PLACES_LIST);
-  closeModalWindow(CARD_FORM_MODAL_WINDOW);
-};
+const submitProfileInfo = (data) => {
+  userInfo.setUserInfo(data);
+}
 
-// EventListeners
-EDIT_FORM_MODAL_WINDOW.addEventListener('submit', formSubmitHandler);
-CARD_FORM_MODAL_WINDOW.addEventListener('submit', cardFormSubmitHandler);
+const popupEditProfile = new PopupWithForm(POPUP_EDIT_PROFILE, submitProfileInfo);
+popupEditProfile.setEventListeners();
 
-OPEN_EDIT_FORM_BUTTON.addEventListener('click', () => {
-  TITLE_INPUT.value = PROFILE_TITLE.textContent;
-  DESCRIPTION_INPUT.value = PROFILE_DESCRIPTION.textContent;
-  openModalWindow(EDIT_FORM_MODAL_WINDOW);
+OPEN_POPUP_EDIT_PROFILE.addEventListener('click', () => {
+  popupEditProfile.setDefaultValues(userInfo.getUserInfo());
+  popupEditProfile.open();
 });
 
-OPEN_CARD_FORM_BUTTON.addEventListener('click', () => {
-  openModalWindow(CARD_FORM_MODAL_WINDOW);
-});
+const editProfileFormValidator = new FormValidator(DEFAULT_FORM_CONFIG, POPUP_EDIT_PROFILE);
+editProfileFormValidator.enableValidation();
 
-EDIT_FORM_MODAL_WINDOW.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(EDIT_FORM_MODAL_WINDOW);
-  }
-});
-CARD_FORM_MODAL_WINDOW.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(CARD_FORM_MODAL_WINDOW);
-  }
-});
-IMAGE_MODAL_WINDOW.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(IMAGE_MODAL_WINDOW);
-  }
-});
+/////// Отображение карточек
 
 const cardsList = new Section({
     items: INITIAL_CARDS,
     renderer: (item) => {
-      const card = new Card(item, CARD);
-      const cardElement = card.getView();
-
-      cardsList.addItem(cardElement);
+      cardsList.addItem(createCard(item));
     },
   },
-  '.places__list'
+  PLACES_LIST
 );
 
 cardsList.renderItems();
 
-const editFormValidator = new FormValidator(defaultFormConfig, EDIT_FORM_MODAL_WINDOW);
-const cardFormValidator = new FormValidator(defaultFormConfig, CARD_FORM_MODAL_WINDOW);
-
-editFormValidator.enableValidation();
-cardFormValidator.enableValidation();

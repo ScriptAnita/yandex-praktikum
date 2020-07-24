@@ -25,23 +25,37 @@ export const INITIAL_CARDS = [
   }
 ];
 
-// Врапперы
-export const PLACES_LIST = document.querySelector('.places__list');
-export const EDIT_FORM_MODAL_WINDOW = document.querySelector('.popup_type_edit');
-export const CARD_FORM_MODAL_WINDOW = document.querySelector('.popup_type_new-card');
-export const IMAGE_MODAL_WINDOW = document.querySelector('.popup_type_image');
-export const CARD = '.card-template';
+export const DEFAULT_FORM_CONFIG = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
-// Кнопки и прочие дом узлы
-export const OPEN_EDIT_FORM_BUTTON = document.querySelector('.profile__edit-button');
-export const OPEN_CARD_FORM_BUTTON = document.querySelector('.profile__add-button');
+export const POPUP_EDIT_PROFILE = '.popup_type_edit';
+export const POPUP_NEW_CARD = '.popup_type_new-card';
+export const CARD_TEMPLATE = '.card-template';
+export const CARD = '.card';
+export const CARD_IMAGE = '.card__image';
+export const CARD_TITLE = '.card__title';
+export const LIKE_BUTTON = '.card__like-button';
+export const LIKE_BUTTON_ACTIVE = '.card__like-button_is-active';
+export const DELETE_BUTTON = '.card__delete-button';
+export const PLACES_LIST = '.places__list';
 
-// DOM узлы профиля
-export const PROFILE_TITLE = document.querySelector('.profile__title');
-export const PROFILE_DESCRIPTION = document.querySelector('.profile__description');
+export const OPEN_POPUP_EDIT_PROFILE = document.querySelector('.profile__edit-button');
+export const OPEN_POPUP_NEW_CARD = document.querySelector('.profile__add-button');
 
-// Данные форм и элементы форм
-export const TITLE_INPUT = EDIT_FORM_MODAL_WINDOW.querySelector('.popup__input_type_name');
-export const DESCRIPTION_INPUT = EDIT_FORM_MODAL_WINDOW.querySelector('.popup__input_type_description');
-export const CARD_NAME_INPUT = CARD_FORM_MODAL_WINDOW.querySelector('.popup__input_type_card-name');
-export const CARD_LINK_INPUT = CARD_FORM_MODAL_WINDOW.querySelector('.popup__input_type_url');
+export const PROFILE_TITLE = '.profile__title';
+export const PROFILE_DESCRIPTION = '.profile__description';
+
+export const IMAGE_POPUP = '.popup_type_image';
+export const POPUP_IMAGE = '.popup__image';
+export const POPUP_CAPTION = '.popup__caption';
+
+export const POPUP = 'popup';
+export const POPUP_CLOSE_BTN = 'popup__close';
+export const POPUP_FORM = '.popup__form';
+export const DISABLE_SUBMIT_BUTTON = 'popup__button_disabled';
