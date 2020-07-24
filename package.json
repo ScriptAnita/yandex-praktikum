@@ -1,24 +1,16 @@
 {
   "private": true,
-  "name": "sprint_7",
+  "name": "Yandex.Praktikum",
   "version": "0.0.1",
-  "description": "Yandex.Praktikum canonical projects",
+  "description": "Yandex.Praktikum code review project",
   "scripts": {
     "hint": "htmlhint ./public/index.html",
     "deploy": "gh-pages -d dist",
     "dev": "webpack-dev-server --open --watch",
     "build": "rm -rf dist && webpack"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/pcr-web/canonical_ru-en_sprint7.git"
-  },
-  "author": "Andrey Strogov",
+  "author": "Andrew Potapov",
   "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/pcr-web/canonical_ru-en_sprint7/issues"
-  },
-  "homepage": "https://gitlab.com/pcr-web/canonical_ru-en_sprint7.git#README",
   "dependencies": {
     "gh-pages": "^2.2.0",
     "htmlhint": "^0.11.0"
