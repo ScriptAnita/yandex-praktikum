@@ -41,7 +41,7 @@ export const CARD = '.card';
 export const CARD_IMAGE = '.card__image';
 export const CARD_TITLE = '.card__title';
 export const LIKE_BUTTON = '.card__like-button';
-export const LIKE_BUTTON_ACTIVE = '.card__like-button_is-active';
+export const LIKE_BUTTON_ACTIVE = 'card__like-button_is-active';
 export const DELETE_BUTTON = '.card__delete-button';
 export const PLACES_LIST = '.places__list';
 
