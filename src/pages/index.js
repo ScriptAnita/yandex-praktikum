@@ -1,3 +1,4 @@
+import './index.css';
 import {
   POPUP_NEW_CARD,
   IMAGE_POPUP,
