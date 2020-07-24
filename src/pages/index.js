@@ -1,59 +1,23 @@
+import {
+  CARD_FORM_MODAL_WINDOW,
+  CARD_LINK_INPUT,
+  CARD_NAME_INPUT,
+  DESCRIPTION_INPUT,
+  EDIT_FORM_MODAL_WINDOW, IMAGE_MODAL_WINDOW,
+  INITIAL_CARDS,
+  OPEN_CARD_FORM_BUTTON,
+  OPEN_EDIT_FORM_BUTTON,
+  PLACES_LIST,
+  PROFILE_DESCRIPTION,
+  PROFILE_TITLE,
+  TITLE_INPUT,
+  CARD
+} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 
 const ESC_KEYCODE = 27;
-// Константы
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-// Врапперы
-const placesWrap = document.querySelector('.places__list');
-const editFormModalWindow = document.querySelector('.popup_type_edit');
-const cardFormModalWindow = document.querySelector('.popup_type_new-card');
-const imageModalWindow = document.querySelector('.popup_type_image');
-// С submit ребята еще плохо работают.
-
-// Кнопки и прочие дом узлы
-const openEditFormButton = document.querySelector('.profile__edit-button');
-const openCardFormButton = document.querySelector('.profile__add-button');
-
-// DOM узлы профиля
-const profileTitle = document.querySelector('.profile__title');
-const profileDescription = document.querySelector('.profile__description');
-
-// Данные форм и элементы форм
-const titleInputValue = editFormModalWindow.querySelector('.popup__input_type_name');
-const descriptionInputValue = editFormModalWindow.querySelector('.popup__input_type_description');
-const cardNameInputValue = cardFormModalWindow.querySelector('.popup__input_type_card-name');
-const cardLinkInputValue = cardFormModalWindow.querySelector('.popup__input_type_url');
-// решение на минималках. Конечно, студент может корректно обобрать велью инпутов в форме.
-
-const cardSelector = '.card-template';
 const defaultFormConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -81,7 +45,7 @@ const closeModalWindow = (modalWindow) => {
 };
 
 const renderCard = (data, wrap) => {
-  const card = new Card(data, cardSelector);
+  const card = new Card(data, CARD);
   wrap.prepend(card.getView());
 };
 
@@ -92,57 +56,57 @@ const handleEscUp = (evt) => {
 
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
-  profileTitle.textContent = titleInputValue.value;
-  profileDescription.textContent = descriptionInputValue.value;
-  closeModalWindow(editFormModalWindow);
+  PROFILE_TITLE.textContent = TITLE_INPUT.value;
+  PROFILE_DESCRIPTION.textContent = DESCRIPTION_INPUT.value;
+  closeModalWindow(EDIT_FORM_MODAL_WINDOW);
 };
 
 const cardFormSubmitHandler = (evt) => {
   evt.preventDefault();
   renderCard({
-    name: cardNameInputValue.value,
-    link: cardLinkInputValue.value
-  }, placesWrap);
-  closeModalWindow(cardFormModalWindow);
+    name: CARD_NAME_INPUT.value,
+    link: CARD_LINK_INPUT.value
+  }, PLACES_LIST);
+  closeModalWindow(CARD_FORM_MODAL_WINDOW);
 };
 
 // EventListeners
-editFormModalWindow.addEventListener('submit', formSubmitHandler);
-cardFormModalWindow.addEventListener('submit', cardFormSubmitHandler);
+EDIT_FORM_MODAL_WINDOW.addEventListener('submit', formSubmitHandler);
+CARD_FORM_MODAL_WINDOW.addEventListener('submit', cardFormSubmitHandler);
 
-openEditFormButton.addEventListener('click', () => {
-  titleInputValue.value = profileTitle.textContent;
-  descriptionInputValue.value = profileDescription.textContent;
-  openModalWindow(editFormModalWindow);
+OPEN_EDIT_FORM_BUTTON.addEventListener('click', () => {
+  TITLE_INPUT.value = PROFILE_TITLE.textContent;
+  DESCRIPTION_INPUT.value = PROFILE_DESCRIPTION.textContent;
+  openModalWindow(EDIT_FORM_MODAL_WINDOW);
 });
 
-openCardFormButton.addEventListener('click', () => {
-  openModalWindow(cardFormModalWindow);
+OPEN_CARD_FORM_BUTTON.addEventListener('click', () => {
+  openModalWindow(CARD_FORM_MODAL_WINDOW);
 });
 
-editFormModalWindow.addEventListener('click', (evt) => {
+EDIT_FORM_MODAL_WINDOW.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(editFormModalWindow);
+    closeModalWindow(EDIT_FORM_MODAL_WINDOW);
   }
 });
-cardFormModalWindow.addEventListener('click', (evt) => {
+CARD_FORM_MODAL_WINDOW.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(cardFormModalWindow);
+    closeModalWindow(CARD_FORM_MODAL_WINDOW);
   }
 });
-imageModalWindow.addEventListener('click', (evt) => {
+IMAGE_MODAL_WINDOW.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closeModalWindow(imageModalWindow);
+    closeModalWindow(IMAGE_MODAL_WINDOW);
   }
 });
 
 // Инициализация
-initialCards.forEach((data) => {
-  renderCard(data, placesWrap)
+INITIAL_CARDS.forEach((data) => {
+  renderCard(data, PLACES_LIST)
 });
 
-const editFormValidator = new FormValidator(defaultFormConfig, editFormModalWindow);
-const cardFormValidator = new FormValidator(defaultFormConfig, cardFormModalWindow);
+const editFormValidator = new FormValidator(defaultFormConfig, EDIT_FORM_MODAL_WINDOW);
+const cardFormValidator = new FormValidator(defaultFormConfig, CARD_FORM_MODAL_WINDOW);
 
 editFormValidator.enableValidation();
 cardFormValidator.enableValidation();
