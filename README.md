@@ -10,3 +10,16 @@
 * CSS
 * БЭМ
 * JavaScript
+
+## Требования
+
+`node: 12`
+
+## Для разработки:
+
+`npm run dev`
+
+## Для сборки:
+
+`npm run build`
+
