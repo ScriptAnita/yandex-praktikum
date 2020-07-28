@@ -12,3 +12,7 @@ export default class PopupWithImage extends Popup {
     super.open();
   }
 }
+
+/* Нужно исправить:
+В классе PopupWithImage нужно доработать метод open, чтобы атрибут alt тега src не оставался пустым
+*/
