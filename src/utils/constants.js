@@ -59,3 +59,11 @@ export const POPUP = 'popup';
 export const POPUP_CLOSE_BTN = 'popup__close';
 export const POPUP_FORM = '.popup__form';
 export const DISABLE_SUBMIT_BUTTON = 'popup__button_disabled';
+
+/* Отлично!: все константы вынесены в отдельный файл*/
+
+/* Можно лучше:
+Для имен переменных и констант стоит использовать существительные, именования которых четко соответствуют хранимым данным.
+По именам констант OPEN_POPUP_EDIT_PROFILE, OPEN_POPUP_NEW_CARD трудно сразу определить какой перед нами элемент,
+поэтому в данном случае лучше указать, что элемент является кнопкой, например: openEditPopupButton.
+*/
