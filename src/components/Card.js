@@ -62,3 +62,15 @@ class Card {
 }
 
 export default Card;
+
+/* Можно лучше:
+Здесь есть возможность деструктурировать параметры передаваемые в конструктор класса.
+Пример класса c использованием деструктуризации параметров:
+
+class Card {
+  constructor({ image, description }) {
+      this._image = image;
+      this._description = description;
+  }
+}
+*/
