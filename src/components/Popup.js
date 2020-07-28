@@ -31,3 +31,8 @@ export default class Popup {
     this._popupElement.addEventListener('click', this._handleClick.bind(this))
   }
 }
+
+/* Отлично!:
++ Базовый класс Popup для всплывающих окон хорошо организован.
++ Удалять обработчики событий отличная практика, ведь это предотвращает потенциальную утечку памяти. Вы молодец!
+*/
