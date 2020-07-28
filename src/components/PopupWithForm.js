@@ -24,6 +24,14 @@ export default class PopupWithForm extends Popup {
   _clearForm(e) {
     this._form.reset();
     e.submitter.classList.add(DISABLE_SUBMIT_BUTTON);
+    
+    /* Можно лучше:
+    Здесь хочу обратить Ваше внимание на то, что свойство 'submitter' поддерживается не всеми версиями браузеров.
+    Например в Chrome с версией ниже v.81 при отправке формы (нажатии на кнопку "Сохранить")
+    свойство 'submitter' вернет undefined, в консоль выйдет ошибка и попап не закроется.
+    Поэтому реализацию данного метода лучше заменить на более доступную.
+    */
+    
   }
 
   setDefaultValues(values) {
